@@ -1,0 +1,1850 @@
+/* ==========================================================================
+   🌐 1. 基本設定 ＆ 画面レイアウト
+   ========================================================================== */
+
+:root {
+    --container-width: min(800px, 90vw); 
+    --grid-square-size: calc(var(--container-width) / 11); 
+}
+
+*, *::before, *::after {
+    box-sizing: border-box; /* 要素の幅・高さの計算を狂わせない設定 */
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden; /* body自体のスクロールは禁止 */
+    background-color: #f8f8f8;
+    color: #333333;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* 画面全体を覆うスクロールバー専用の部屋 */
+#main-content.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll; /* スクロールバーを画面の一番右端に強制配置 */
+    z-index: 1; /* フレームの下に潜り込ませる */
+}
+
+/* 🎯 文字が乗るメインコンテンツのラッパー（額縁の中のカード） */
+main {
+    width: 100%;
+    max-width: var(--container-width);
+    height: auto;
+    overflow-y: visible; 
+    margin: 0 auto; 
+    position: relative;
+
+    /* 💡 【修正】上のパディングを 190px ➔ 230px に増やしました！
+       これで下がってきたヘッダーを綺麗に避けて、メッセージがそのすぐ下から絶妙な位置で始まります。 */
+    padding: 230px 20px 60px 20px !important; 
+}
+
+
+/* 表示・非表示コントロール */
+.hidden {
+    display: none !important;
+}
+
+
+
+/* ==========================================
+    nav タブボタンのアニメーション追加
+   ========================================== */
+.tab-btn {
+    /* 既存の設定に加えて、transition を追加 */
+    transition: background-color 0.5s, transform 0.5s, color 0.4s, border-color 0.2s !important;
+    
+    /* ホバーやアクティブ時の変化が綺麗に見えるように、軽い角丸とインラインブロック化を設定 */
+    border-radius: 6px !important;
+    display: inline-block !important;
+}
+
+/* 💻 マウスを乗せたとき（ホバー時）のエフェクト */
+.tab-btn:hover {
+    transform: scale(1.05) !important;       /* 👈 ボタンと同じように少しだけ大きく弾ませる */
+    background-color: rgba(68, 0, 116, 0.05) !important; /* ライトモード時：うっすら紫の背景色をつける */
+}
+
+/* 🌙 ダークモード時のマウスホバーエフェクト */
+body.dark-mode .tab-btn:hover {
+    background-color: rgba(255, 211, 67, 0.1) !important; /* ダークモード時：うっすら黄色の背景色をつける */
+}
+
+/* 🎯 クリックした瞬間（アクティブ時）の軽い沈み込み演出 */
+.tab-btn:active {
+    transform: scale(0.98) !important;
+}
+
+/* ==========================================================================
+   🌙 2. モード設定（ライト／ダークモード）
+   ========================================================================== */
+
+body.dark-mode {
+    background-color: #2b034f; /* 先生のアイコンの深みのある紫色 */
+    color: #ffffff !important; 
+}
+
+body.dark-mode main {
+    background-image: none; 
+    border: none; 
+}
+
+
+
+/* ==========================================
+   🌓 モード切替ボタンを mode.png に置き換え（大型化版）
+   ========================================== */
+    #mode-toggle {
+        background-image: url('images/mode.png') !important; /* 画像を背景に設定 */
+        background-size: 50px 50px !important;     /* 👈【大きく】ボタン内の画像サイズ */
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        background-color: #daf7b7;                 /* ボタンの背景色 */
+        
+        width: 80px !important;                    /* 👈【大きく】ボタン自体の横幅 */
+        height: 80px !important;                   /* 👈【大きく】ボタン自体の縦幅 */
+        border-radius: 50% !important;             /* ボタンをきれいな正円にする */
+        padding: 0 !important;                     /* 内側の余白をリセット */
+        border: none !important;                   /* 枠線を消してスッキリさせる */
+        cursor: pointer !important;
+        
+        /* ボタンの中に入っている「🌓」のテキストだけを完全に隠す */
+        color: transparent !important;
+        font-size: 0 !important;
+        
+        /* 画面内で少し浮き立つように軽い影をつける（プロっぽくなります） */
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+        transition: background-color 0.5s, transform 0.2s !important;
+    }
+
+    /* ホバー（マウスを乗せたとき）の調整 */
+    #mode-toggle:hover {
+        background-color: #5a6268;
+        transform: scale(1.05); /* 👈 マウスを乗せたら少しだけ弾むように大きく */
+    }
+
+    /* 🌙 ダークモードになったときのボタンの見た目 */
+    body.dark-mode #mode-toggle {
+        background-color: #451188;                 /* ダークモード時はボタンを明るい黄色に */
+    }
+
+/* ── 📱 スマホ版の設定（@media (max-width: 768px) の中に入れてください） ── */
+@media (max-width: 768px) {
+
+    /* 既存のスマホ用設定の末尾（ } の直前）に以下を貼り付けてください */
+    header #mode-toggle {
+        /* 🎯 要素の性質を inline-block にして、周囲の引き伸ばし(stretch)を完全に無効化 */
+        display: inline-block !important;
+        
+        width: 48px !important;
+        height: 48px !important;
+        max-height: 48px !important; /* 👈 縦に伸びるのを物理的に絶対阻止 */
+        background-size: 24px 24px !important;
+        
+        /* 🎯 縦の配置を周りのテキストやメニューの「中央」に強制的に合わせる */
+        vertical-align: middle !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+}
+
+/* ==========================================================================
+   🔑 3. パスワード画面（ログイン）
+   ========================================================================== */
+
+#password-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-box {
+    text-align: center;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    transition: background-color 0.4s ease;
+}
+
+body.dark-mode .login-box {
+    background: #1e1e1e;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    color: #ffffff;
+}
+
+.input-area {
+    margin-top: 20px;
+}
+
+input {
+    padding: 12px 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    outline: none;
+}
+
+body.dark-mode input {
+    background: #2a2a2a;
+    border-color: #444;
+    color: #fff;
+}
+
+
+/* ==========================================================================
+   Header ＆ 共通ボタン・タブナビゲーション
+   ========================================================================== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: background-color 0.4s ease;
+
+    position: absolute !important;
+    left: 0 !important;        
+    width: 100% !important;    
+    z-index: 100;              
+    border-radius: 0 !important; 
+
+    /* 🎯【変更】topを 125px から「0」にして、ヘッダーの箱の一番上を画面最上部まで引き伸ばします */
+    top: 0 !important;          
+
+    /* 🎯【変更】上に伸びた125px分、paddingの上（1番目の値）を「16px」から「141px」に増やします
+       これで、中の文字やボタンの位置が下に押し下げられ、今の位置から1ミリも動かなくなります */
+    padding: 80px 160px 16px 160px !important; 
+}
+
+
+
+
+
+
+
+body.dark-mode header {
+    background: #1e1e1e;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+}
+
+.tab-btn {
+    background: none;
+    color: #666666;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+body.dark-mode .tab-btn {
+    color: #aaaaaa;
+}
+
+.tab-btn.active {
+    color: #440074;
+    border-bottom: 3px solid #440074;
+}
+
+body.dark-mode .tab-btn.active {
+    color: #ffd343;
+    border-bottom: 3px solid #ffd343;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    background-color: #440074;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:hover {
+    background-color: #b3a4b7;
+}
+
+
+.error {
+    color: #ff4d4d;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+
+/* ==========================================================================
+   🖼️ 4. 固定外枠フレーム（額縁） ＆ 四隅の星
+   ========================================================================== */
+
+#global-frame {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; 
+    z-index: 9999;
+}
+
+.frame-border {
+    position: absolute;
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.25);
+    z-index: 9999;
+    pointer-events: none !important; 
+}
+
+.frame-top { 
+    top: 0; left: 0; width: 100vw; height: 48px; 
+    clip-path: polygon(0 0, 100% 0, calc(100% - 48px) 100%, 48px 100%);
+    background: linear-gradient(to bottom, #d3d2b1 0%, rgb(192, 189, 134) 35%, #9a8b58 75%, #645a33 100%) !important;
+}
+
+.frame-bottom { 
+    bottom: 0; left: 0; width: 100vw; height: 48px; 
+    clip-path: polygon(48px 0, calc(100% - 48px) 0, 100% 100%, 0 100%);
+    background: linear-gradient(to top, #d3d2b1 0%, rgb(192, 189, 134) 35%, #9a8b58 75%, #645a33 100%) !important;
+}
+
+.frame-left { 
+    top: 0; left: 0; width: 48px; height: 100vh; 
+    clip-path: polygon(0 0, 100% 48px, 100% calc(100% - 48px), 0 100%);
+    background: linear-gradient(to right, #cfc9b6 0%, rgb(179, 168, 127) 35%, #a59762 75%, #645a33 100%) !important;
+}
+
+.frame-right { 
+    top: 0; right: 0; width: 48px; height: 100vh; 
+    clip-path: polygon(0 48px, 100% 0, 100% 100%, 0 calc(100% - 48px));
+    background: linear-gradient(to left, #cfc9b6 0%, rgb(179, 168, 127) 35%, #a59762 75%, #645a33 100%) !important;
+}
+
+#global-frame::before {
+    content: "";
+    position: absolute;
+    top: 48px;
+    left: 48px;
+    right: 48px;
+    bottom: 48px;
+    border-radius: 32px;
+    box-shadow: 0 0 0 100vmax #635932;
+    clip-path: inset(-100vmax);
+    z-index: 9998;
+}
+
+.corner-star {
+    position: absolute;
+    width: 56px;  
+    height: 56px;
+    object-fit: contain;
+    z-index: 10006;
+}
+.top-left     { top: 1px; left: 1px; transform: rotate(-45deg); }
+.top-right    { top: 1px; right: 1px; transform: rotate(45deg); }
+.bottom-left  { bottom: 1px; left: 1px; transform: rotate(-135deg); }
+.bottom-right { bottom: 1px; right: 1px; transform: rotate(-135deg); }
+
+/* ⚜️ 4辺の装飾グループ ＆ 星起点Flexboxシステム（起点を8つに完全固定） */
+.edge-group {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    gap: 0;
+    z-index: 10000;
+    pointer-events: none !important;
+}
+
+/* ⬆️ 上辺：★ ➔ 🎀 ➔ 中央 ➔ 🎀 ← ★ */
+.edge-top {
+    top: -1px;
+    left: 60px; 
+    width: calc(100vw - 120px);
+    height: 50px;
+    flex-direction: row !important; /* 通常の左から右への流れ */
+}
+
+/* ⬇️ 【完全修正】下辺：左右の流れ（★➔🎀←★）を維持したまま、上下だけを反転 */
+.edge-bottom {
+    bottom: -1px;
+    left: 60px;
+    width: calc(100vw - 120px);
+    height: 50px;
+    flex-direction: row !important; 
+    
+    /* 🎯 【ここを追加】左右（X軸）はそのまま「1」、上下（Y軸）だけを「-1」にしてパタッとひっくり返します */
+    transform: scaleY(-1) !important; 
+}
+
+/* ⬅️ 【完全修正】左辺：上の★ ➔ 🎀 ➔ 中央 ➔ 🎀 ← 下の★ */
+.edge-left {
+    top: 50%;
+    width: calc(100vh - 96px); 
+    /* 🎯 反転を直すために -90deg にした分、左端にピッタリ張り付くように位置（left）を再計算しました */
+    left: calc(24px - (100vh - 96px) / 2) !important;
+    transform: rotate(-90deg) !important; /* 👈 -90度（左回り）にすることで、上下の向きが180度ひっくり返り、正しくなります！ */
+    transform-origin: center center;    
+    margin-top: -15px; 
+    height: 50px;
+    flex-direction: row !important; 
+}
+
+/* ➡️ 右辺：上の★ ➔ 🎀 ➔ 中央 ➔ 🎀 ← 下の★ */
+.edge-right {
+    top: 50%;
+    width: calc(100vh - 96px);
+    right: calc(24px - (100vh - 96px) / 2);
+    transform: rotate(90deg) !important; /* 右辺は 90度（右回り）のままで正常です */
+    transform-origin: center center;    
+    margin-top: -15px; 
+    height: 50px;
+    flex-direction: row !important; 
+}
+
+/* 🎀 中央のリボン飾り */
+.center-decor {
+    height: 48px; 
+    width: auto;  
+    object-fit: contain;
+    z-index: 10005;
+    flex-shrink: 0;
+    margin: 0 5px; 
+}
+
+/* 🌿 交互リピートユニット（★から中央へ向かう左側コンテナ） */
+.flex-decor {
+    flex-grow: 1;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow: hidden;
+    flex-direction: row !important; /* ★ ➔ リボンへ正方向に並べる */
+}
+
+/* 🌿 交互リピートユニット（★から中央へ向かう右側コンテナ） */
+.decor-corner-in-right {
+    /* 🎯 右側のパーツ群だけ、並び順を「逆順（右から左へ）」に強制変更 */
+    flex-direction: row-reverse !important; 
+}
+
+.unit {
+    width: auto; 
+    height: 45px; 
+    flex-shrink: 0; 
+    background-repeat: repeat;
+    background-position: center;
+    background-size: cover; 
+    margin: 0 -6px;
+}
+
+.unit.f1 {
+    width: 350px; 
+    background-image: url('images/frame1.png');
+}
+
+/* 矢印の向き（f3の模様の向き）を、すべて★からリボンへ向かうように鏡像反転を個別に微調整 */
+.unit.f3-v {
+    width: 170px; 
+    background-image: url('images/frame3.png');
+    transform: scaleX(1) !important; 
+}
+
+.unit.f3-vh {
+    width: 170px; 
+    background-image: url('images/frame3.png');
+    transform: scaleX(-1) !important; 
+}
+
+/* 右側コンテナに入っているf3の模様の向きをさらに個別で反転させて綺麗に揃える */
+.decor-corner-in-right .unit.f3-v { transform: scaleX(-1) !important; }
+.decor-corner-in-right .unit.f3-vh { transform: scaleX(1) !important; }
+
+
+/* ==========================================================================
+   🎯 【完全修正】中央のリボンの両端に確実にグラデーション（マスク）をかける設定
+   ========================================================================== */
+
+/* ⬅️ 4辺すべての「左側（または上側）」のコンテナ
+   【解説】要素の並びが「左➔右」なので、右端（リボン側）に向けてフェードアウトさせます */
+.decor-corner-in-left {
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%) !important;
+    mask-image: linear-gradient(to right, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%) !important;
+}
+
+/* ➡️ 4辺すべての「右側（または下側）」のコンテナ
+   【解説】row-reverseで並びが「右➔左」に反転しているため、
+   マスクのグラデーションも「左端（リボン側）」に向けてフェードアウトするように指定します */
+.decor-corner-in-right {
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%) !important;
+    mask-image: linear-gradient(to left, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%) !important;
+}
+
+.edge-left .decor-corner-in-left { margin-left: 15px; }
+.edge-right .decor-corner-in-right { margin-right: 15px; }
+
+
+/* ==========================================================================
+   🌸 5. メインページ（中央メッセージ ＆ 動く背景アート）
+   ========================================================================== */
+
+.main-message-container {
+    position: relative !important;
+    margin: 20px auto 30px auto !important; 
+    display: flex !important;
+    flex-direction: column !important; 
+    align-items: center !important;    
+    justify-content: center !important;
+    width: 100% !important;             
+    max-width: 900px !important;       
+    text-align: center !important;
+    z-index: 2;                        
+}
+
+.main-thank-you-text {
+    font-family: "Sawarabi Mincho", serif !important; 
+    color: #333333 !important;
+    margin: 25px 0 !important;          
+    line-height: 1.7 !important;       
+    text-align: center !important;
+    transition: color 0.4s ease;
+}
+
+body.dark-mode .main-thank-you-text,
+body.dark-mode .main-thank-you-text .t-name,
+body.dark-mode .main-thank-you-text .t-title,
+body.dark-mode .main-thank-you-text .t-msg {
+    color: #ffffff !important;
+}
+
+.main-thank-you-text .t-name { font-size: 28px !important; font-weight: bold !important; letter-spacing: 0.1em !important; }
+.main-thank-you-text .t-title { font-size: 18px !important; margin-left: 0.5em !important; letter-spacing: 0.1em !important; }
+.main-thank-you-text .t-msg { font-size: 32px !important; letter-spacing: 0.12em !important; display: inline-block !important; }
+
+.msg-line-top, .msg-line-bottom {
+    width: 100% !important;             
+    max-width: 850px !important;       
+    height: 20px !important;            
+    object-fit: cover !important;      
+}
+.msg-line-top { transform: scaleY(-1) !important; }
+
+.photo-container {
+    position: relative; 
+    max-width: 530px;
+    margin: 30px auto 35px auto; 
+    padding: 20px 12px; 
+    background: #c2c2b3;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.4s ease;
+}
+
+body.dark-mode .photo-container {
+    background: #171717;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.main-photo { width: 100%; border-radius: 12px; display: block; }
+.photo-decor-top { position: absolute; top: -10px; left: 12px; right: 12px; width: calc(100% - 24px) !important; height: auto; z-index: 3; transform: scale(-1, -1) !important; }
+.photo-decor-bottom { position: absolute; bottom: -10px; left: 12px; right: 12px; width: calc(100% - 24px) !important; height: auto; z-index: 3; }
+
+/* 🌸 ⚡ 【超重要】動く背景お花アート ＆ ホバー復活設定 ⚡ */
+#main-page-flying-decor { 
+    position: fixed; 
+    top: 0; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: min(1000px, 95vw); 
+    height: 100vh; 
+    pointer-events: none; /* 下の要素の邪魔をしない */
+    z-index: 2; 
+}
+
+/* 🎯 お花画像そのものにホバーイベントを強制的に許可する */
+#main-page-flying-decor img { 
+    position: absolute; 
+    opacity: 0.85; 
+    filter: drop-shadow(0 0 8px rgba(218, 165, 32, 0.2)); 
+    transition: all 0.5s ease; 
+    pointer-events: auto !important; /* 👈 これがお花のホバー復活の鍵です！ */
+    cursor: pointer !important;
+}
+
+/* 💻 帯フレーム共通設定（ここもお花の親要素なのでイベントを通す） */
+.band-group { 
+    position: fixed !important; 
+    z-index: 3; 
+    display: flex !important; 
+    left: -19vw !important; 
+    right: -19vw !important; 
+    width: auto !important; 
+    height: calc((100vw + 11.98vw) / 15.4) !important; 
+    pointer-events: none !important; /* 帯自体はすり抜けさせて、中の画像にイベントを届ける */
+}
+.band-group-top { top: 1vw !important; }
+.band-group-bottom { bottom: 1vw !important; }
+
+.band-group > div { 
+    height: 100% !important; 
+    background-repeat: no-repeat !important; 
+    background-size: contain !important; 
+    position: relative !important; 
+    pointer-events: none !important; 
+}
+.band-group > div:not(:first-child) { margin-left: -1.5% !important; }
+.band-group .d-main { flex-grow: 4.20 !important; background-image: url('images/decoration_main.png'); background-position: center center !important; }
+.band-group .d-sub { flex-grow: 3.81 !important; background-image: url('images/decoration_sub.png'); background-position: center center !important; }
+.band-group-top > div { transform: rotate(180deg) !important; }
+
+/* 💻 PC版：お花にホバーした時のダイナミック回転アニメーション設定 */
+.bg-fl-main-top1, .bg-fl-main-top3, .bg-fl-main-bottom4, .bg-day1-bottom { 
+    animation: none !important; 
+    transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; 
+}
+.bg-fl-main-top1:hover { transform: translate(-50%, 0) rotate(260deg) scale(1.18) !important; z-index: 5; }
+.bg-fl-main-top3:hover { transform: translate(-50%, 0) rotate(-300deg) scale(1.18) !important; z-index: 5; }
+.bg-day1-bottom:hover { transform: translate(-50%, 0) scale(1.18) !important; z-index: 5; }
+.bg-fl-main-bottom4:hover { transform: translate(-50%, 0) rotate(295deg) scale(1.18) !important; z-index: 5; }
+
+/* お花・装飾の通常位置（PC基準） */
+.bg-fl-main-top1 { left: 85% !important; top: -20% !important; height: 110% !important; transform: translate(-50%, 0) rotate(165deg) !important; }
+.bg-fl-main-top3 { left: 84% !important; top: -10% !important; height: 90% !important; transform: translate(-50%, 0) rotate(-175deg) !important; }
+.bg-day1-bottom { left: 84% !important; top: 20% !important; height: 43% !important; transform: translate(-50%, 0) !important; }
+.bg-fl-main-bottom4 { left: 85% !important; top: -30% !important; height: 109% !important; transform: translate(-50%, 0) rotate(170deg) !important; }
+
+/* 🏃‍♂️ フッターのGIFアニメコンテナ */
+.gif-animation-container {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 20px !important;
+    margin: 25px auto 40px auto !important; 
+    position: relative !important;
+    z-index: 2;
+}
+
+.footer-gif { height: 55px; width: auto; object-fit: contain; display: inline-block; cursor: pointer; transition: transform 0.2s; }
+.gif-mario { height: 60px; }
+.gif-blob  { height: 50px; }
+.gif-parrot{ height: 37px; }
+
+.gif-mario  { animation: gentle-float 2s ease-in-out infinite; }
+.gif-blob   { animation: gentle-float 2s ease-in-out infinite 0.4s; }
+.gif-parrot { animation: gentle-float 2s ease-in-out infinite 0.8s; }
+
+@keyframes gentle-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+body.dark-mode .gif-mario { animation: party-bounce 0.5s infinite alternate; }
+body.dark-mode .gif-blob { animation: party-bounce 0.4s infinite alternate 0.1s; }
+body.dark-mode .gif-parrot { animation: party-bounce 0.45s infinite alternate 0.2s; }
+@keyframes party-bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-20px); } }
+.spin-y { animation: coin-flip 3.0s cubic-bezier(0.25, 1, 0.5, 1) !important; }
+@keyframes coin-flip { 0% { transform: scale(1) rotateX(0deg); } 100% { transform: scale(1) rotateX(1080deg); } }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   👣 フッター（全ページ共通・文字切り替えレスポンシブ完全版）
+   ========================================== */
+footer {
+    display: block !important;
+    background: #ffffff;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+    transition: background-color 0.4s ease;
+    text-align: center !important;
+
+    position: relative !important;
+    width: 100vw !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    
+    margin-top: 0px !important;
+    margin-bottom: -60px !important;
+    
+    /* 🎯 height固定を外し、パディングで均等な厚みを作ります（文字が上下中央にきます） */
+    height: auto !important; 
+    padding: 35px 48px 100px 48px !important; 
+}
+
+body.dark-mode footer {
+    background: #1e1e1e !important;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.footer-area { text-align: center; }
+.date { font-size: 20px !important; font-weight: bold !important; color: #555555 !important; transition: color 0.4s ease; }
+body.dark-mode .date { color: #cccccc !important; }
+
+@media (max-width: 768px) {
+    footer {
+            /* 🎯 margin-top を「-10px」から「20px」などのプラスの値に変更して、程よい間隔を作ります */
+            margin-top: 20px !important; 
+            margin-bottom: -10px !important; 
+            
+            /* 🎯 paddingの上側（1番目の値）を「30px」から「15px」に減らして、フッター内の無駄な空白を削ります */
+            padding: 15px 24px 100px 24px !important; 
+        }
+    .date {
+        font-size: 15px !important;
+    }
+}
+
+
+
+
+/* ==========================================================================
+   📈 6. 軌跡ページ（スキルツリー）
+   ========================================================================== */
+
+.section-title { text-align: center; margin-top: 40px; font-size: 28px; }
+.section-sub { text-align: center; color: #666666; margin-bottom: 60px; font-size: 16px; }
+body.dark-mode .section-sub { color: #aaaaaa; }
+.tree-container { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px; padding: 20px 0; }
+.skill-node { position: relative; background: #ffffff; border: 2px solid #007bff; border-radius: 16px; padding: 20px; text-align: center; width: 120px; box-shadow: 0 6px 12px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+body.dark-mode .skill-node { background: #1e1e1e; border-color: #ffd343; }
+.skill-node:hover { transform: translateY(-6px); box-shadow: 0 12px 20px rgba(0,123,255,0.15); }
+body.dark-mode .skill-node:hover { box-shadow: 0 12px 20px rgba(255,211,67,0.2); }
+.skill-icon { font-size: 42px; margin-bottom: 12px; }
+.skill-node h3 { margin: 0; font-size: 15px; }
+.tree-line { font-size: 24px; color: #007bff; }
+body.dark-mode .tree-line { color: #ffd343; }
+.tooltip { position: absolute; bottom: 115%; left: 50%; transform: translateX(-50%) translateY(10px); background: #222222; color: #ffffff; padding: 12px; border-radius: 8px; font-size: 13px; width: 190px; text-align: left; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 10; line-height: 1.5; }
+body.dark-mode .tooltip { background: #ffffff; color: #222222; }
+.skill-node:hover .tooltip { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+
+/* ==========================================================================
+   💬 7. Message Board（メッセージボード）
+   ========================================================================== */
+
+.message-container { display: flex; justify-content: center; align-items: flex-start; gap: 40px; margin-top: 40px; }
+.control-panel { display: flex; flex-direction: column; gap: 20px; width: 45%; }
+.action-btn { padding: 15px; font-size: 18px; font-weight: bold; border-radius: 12px; border: none; cursor: pointer; transition: transform 0.2s; background: #ffffff; color: #333333; }
+body.dark-mode .action-btn { background: #1e1e1e; color: #ffffff; }
+.python-style-btn { background-color: #3776ab; color: #ffd343; }
+.terminal-area { background-color: #1e1e1e; border-radius: 12px; overflow: hidden; border: 1px solid #333333; }
+.terminal-header { background-color: #2d2d2d; padding: 10px 16px; display: flex; align-items: center; gap: 8px; }
+.terminal-header span[class^="dot-"] { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.dot-red { background: #ff5f56; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green { background: #27c93f; }
+.terminal-title { color: #888888; font-size: 13px; margin-left: 10px; font-family: monospace; }
+.terminal-body { padding: 18px; color: #39ff14; font-family: 'Courier New', Courier, monospace; font-size: 15px; white-space: pre-wrap; min-height: 160px; line-height: 1.5; }
+.message-board { position: relative; width: 45%; background: #ffffff; border-radius: 20px; padding: 35px; min-height: 380px; }
+body.dark-mode .message-board { background: #1e1e1e; }
+.student-profile { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; border-bottom: 2px dashed #e8e8e8; padding-bottom: 15px; }
+body.dark-mode .student-profile { border-bottom-color: #333333; }
+.avatar-img { width: 70px; height: 70px; border-radius: 12px; object-fit: cover; border: 3px solid #007bff; background: #f0f0f0; }
+body.dark-mode .avatar-img { border-color: #ffd343; }
+#student-name { margin: 0; font-size: 24px; font-weight: bold; color: #222222; }
+body.dark-mode #student-name { color: #ffffff; }
+.message-box { font-size: 16px; line-height: 1.7; color: #444444; word-break: break-all; }
+body.dark-mode .message-box { color: #cccccc; }
+
+
+/* ==========================================================================
+   📱 8. 共通スマートフォン対応（レスポンシブ・メディアクエリ）
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    /* 🎯【最重要・追加】スマホ版でも .hidden がついているときは絶対に非表示にする */
+    #main-content.screen.hidden,
+    .screen.hidden {
+        display: none !important;
+    }
+
+    /* 🎯 1. 全体スクロールとメイン領域の調整 */
+
+    main {
+        padding: 225px 15px 0 15px !important; 
+        padding-bottom: 10px !important;
+        height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        flex: none !important; /* 👈 無理やりな引き伸ばしを完全に無効化！ */
+    }
+
+    /* 📱 スマホ版：変わらなかった隙間を力技で詰める設定 */
+@media (max-width: 768px) {
+    /* 各ページのコンテナの下側に無駄な余白（padding-bottom: 80px等）があるのを完全に消します */
+    .page-content {
+        padding-bottom: 0px !important;
+    }
+
+    /* メイン全体のスマホ時の下側マージンをガッツリ削ります */
+    main {
+        margin-bottom: -100px !important;
+    }
+}
+    
+    #main-content.screen {
+        overflow-y: scroll !important; 
+        /* 💡 hiddenが付いていない（ログイン後）の時だけ flex になるよう、!important を外します */
+        display: flex; 
+        flex-direction: column !important;
+        min-height: 100vh !important;
+    }
+
+
+
+    
+
+    /* 🔑 パスワード画面の「パスワードを入力してください」の文字サイズを小さくする */
+    #password-screen h2 {
+        font-size: 16px !important;
+        margin-bottom: 15px;
+        color: #555555; /* ダークモードじゃない時の文字色を少し優しく */
+    }
+
+    /* ダークモード時の文字色も少し優しく */
+    body.dark-mode #password-screen h2 {
+        color: #cccccc;
+    }
+
+    
+    /* ダークモード時のパスワード画面背景 */
+    body.dark-mode #password-screen {
+        background-color: #2c1654 !important;
+    }
+
+
+    h1 { font-size: 20px; }
+
+/* 🎯 2. ヘッダーを綺麗に下げて金枠や中央飾りを完全に避ける（ボタンを内側に寄せる） */
+    header {
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 10px !important;          
+        top: 0 !important;
+        width: 100% !important; /* 横幅は画面いっぱいに戻します */
+        left: 0 !important;
+        border-radius: 0 !important;
+        
+        /* 💡 【修正】paddingの左右（2番目と4番目の数値）を 25px ➔ 45px に広げました！
+           これで左右の金枠からさらに内側にボタンとタブがグッと寄ります */
+        padding: 85px 45px 15px 45px !important; 
+    }
+    header .tabs {
+        display: flex !important;
+        justify-content: flex-start !important; 
+        gap: 4px !important; 
+        width: auto !important; 
+    }
+    header .tab-btn {
+        /* 内側に寄せた分、文字が折れないようにスマホ用のサイズをキープ */
+        padding: 6px 6px !important;
+        font-size: 11px !important;    
+        white-space: nowrap !important; 
+    }
+    header #mode-toggle {
+        width: auto !important;
+        padding: 6px 8px !important;
+        font-size: 11px !important;
+        white-space: nowrap !important;
+    }
+
+
+
+    /* 🎯 3. 外枠フレームのレスポンシブ（24px幅に最適化） */
+    .frame-top { height: 24px !important; clip-path: polygon(0 0, 100% 0, calc(100% - 24px) 100%, 24px 100%) !important; }
+    .frame-bottom { height: 24px !important; clip-path: polygon(24px 0, calc(100% - 24px) 0, 100% 100%, 0 100%) !important; }
+    .frame-left { width: 24px !important; clip-path: polygon(0 0, 100% 24px, 100% calc(100% - 24px), 0 100%) !important; }
+    .frame-right { width: 24px !important; clip-path: polygon(0 24px, 100% 0, 100% 100%, 0 calc(100% - 24px)) !important; }
+
+    #global-frame::before { top: 24px !important; left: 24px !important; right: 24px !important; bottom: 24px !important; border-radius: 16px !important; }
+    .corner-star { width: 28px !important; height: 28px !important; }
+
+    .edge-group, .center-decor, .flex-decor { height: 24px !important; }
+    .unit { height: 22px !important; }
+    .unit.f1 { width: 175px !important; }
+    .unit.f3-v, .unit.f3-vh { width: 85px !important; }
+
+    .edge-top, .edge-bottom { left: 32px !important; width: calc(100vw - 64px) !important; }
+    .edge-left { width: calc(100vh - 48px) !important; left: calc(12px - (100vh - 48px) / 2) !important; margin-top: -7px !important; }
+    .edge-right { width: calc(100vh - 48px) !important; right: calc(12px - (100vh - 48px) / 2) !important; margin-top: -7px !important; }
+
+    /* 🎯 4. ボディのコンテンツを画面中央にバランスよく広げる */
+    .main-message-container { 
+        width: 100% !important; 
+        margin: 20px auto 30px auto !important; 
+    }
+    
+    .main-thank-you-text .t-name { font-size: 16px !important; }
+    .main-thank-you-text .t-title { font-size: 12px !important; }
+    .main-thank-you-text .t-msg { font-size: 18px !important; white-space: normal !important; display: block !important; margin-top: 5px; }
+    
+    .msg-line-top, .msg-line-bottom { 
+        height: 6px !important;
+        width: 100% !important; 
+        clip-path: polygon(0% 0%, 100% 0%, calc(100% - 6px) 100%, 6px 100%) !important; 
+    }
+    
+    .photo-container {
+        width: 95% !important;
+        max-width: 95% !important;
+        margin: 30px auto 40px auto !important; 
+    }
+    .photo-decor-top { left: 8px; right: 8px; width: calc(100% - 16px) !important; top: 10px; }
+    .photo-decor-bottom { left: 8px; right: 8px; width: calc(100% - 16px) !important; bottom: 10px; }
+
+    .bg-side-right { display: none !important; }
+    .band-group { left: -35vw !important; right: -35vw !important; height: calc((200vw) / 15.4) !important; }
+    .band-group-top { top: 25px !important; }
+    .band-group-bottom { bottom: 25px !important; }
+
+    /* 🎯 スマホ版：お花のホバー拡大モーションも維持 */
+    .bg-fl-main-top1:hover, .bg-fl-main-top3:hover, .bg-fl-main-bottom4:hover, .bg-day1-bottom:hover {
+        transform: translate(-50%, 0) scale(1.18) !important; 
+    }
+
+    /* 🎯 5. GIFアニメーションコンテナの間隔調整 */
+    .gif-animation-container {
+        margin: 25px auto 50px auto !important; 
+        gap: 20px !important;
+    }
+    .footer-gif { height: 45px !important; }
+    .gif-mario { height: 50px !important; }
+    .gif-blob { height: 42px !important; }
+    .gif-parrot { height: 32px !important; }
+
+    /* 🎯 6. スマホ版フッター：スマートかつ最下部に密着 */
+    footer {
+        width: 100vw !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        margin-top: 100px !important; 
+        margin-bottom: -10px !important; 
+        padding: 25px 24px 100px 24px !important; 
+    }
+    .date {
+        font-size: 15px !important;
+    }
+
+    /* 🎯 7. その他のページ用レスポンシブ設定 */
+    .tree-container, .message-container { flex-direction: column; }
+    .tree-line { transform: rotate(90deg); margin: 5px 0; }
+    .control-panel, .message-board { width: 100%; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   🖼️ 見出しフレーム：ライトモードは「黒」、ダークモードは「白」に自動反転
+   ========================================================================== */
+
+/* 2ページ目、3ページ目の見出しエリア全体のグループ化 */
+#page-trajectory .page-header-group,
+#page-messages .page-header-group {
+    position: relative !important;
+    display: block !important;
+    text-align: center !important;
+    margin: 0 auto 40px auto !important;
+    max-width: 500px !important; 
+    width: 100% !important;
+    padding-top: 45px !important;
+    padding-bottom: 45px !important;
+}
+
+/* ☝️ セットの「一番上」に配置する飾りフレーム（共通サイズ設定） */
+#page-trajectory .page-header-group::before,
+#page-messages .page-header-group::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 200px !important;  
+    height: 40px !important;  
+    background: url('images/frame1.png') no-repeat center center !important; 
+    background-size: contain !important;
+    z-index: 5 !important;
+    
+    /* ☀️【ライトモード時】黒っぽく（あるいは濃いグレーに）染めるフィルター */
+    filter: brightness(0) opacity(0.85) !important; 
+    transition: filter 0.4s ease !important; /* モード切替時に滑らかに変える */
+}
+
+/* 👇 セットの「一番下」に配置する飾りフレーム（共通サイズ設定 ＆ 上下反転） */
+#page-trajectory .page-header-group::after,
+#page-messages .page-header-group::after {
+    content: "" !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) scaleY(-1) !important; /* 上下反転 */
+    width: 200px !important;
+    height: 40px !important;
+    background: url('images/frame1.png') no-repeat center center !important;
+    background-size: contain !important;
+    z-index: 5 !important;
+    
+    /* ☀️【ライトモード時】下側も同じく黒っぽく染める */
+    filter: brightness(0) opacity(0.85) !important; 
+    transition: filter 0.4s ease !important;
+}
+
+/* ───────────────────────────────────────
+   🌙 ダークモードになった瞬間に「白」へ反転させる設定
+   ─────────────────────────────────────── */
+
+/* 🌙 ダークモード時の上側フレーム ➔ 白っぽく変更 */
+body.dark-mode #page-trajectory .page-header-group::before,
+body.dark-mode #page-messages .page-header-group::before {
+    filter: brightness(0) invert(1) opacity(0.9) !important;
+}
+
+/* 🌙 ダークモード時の下側フレーム ➔ 白っぽく変更 */
+body.dark-mode #page-trajectory .page-header-group::after,
+body.dark-mode #page-messages .page-header-group::after {
+    filter: brightness(0) invert(1) opacity(0.9) !important;
+}
+
+/* グループ内の文字余白の調整 */
+.page-header-group > * {
+    margin: 0 0 8px 0 !important;
+    padding: 0 !important;
+}
+.page-header-group > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+
+
+
+
+
+/* ==========================================
+   🦋 リゼロ風「Re」の上の×マーク演出
+   ========================================== */
+.re-zero-cross {
+    position: relative; /* ×マークを重ねるための基準点にする */
+    display: inline-block;
+}
+
+/* 「Re」の文字の上に重ねる「×」の設定 */
+.re-zero-cross::after {
+    content: "✕";                /* 👈 重ねる文字 */
+    position: absolute;
+    top: 50%;                    /* 縦位置を中央に */
+    left: 50%;                   /* 横位置を中央に */
+    transform: translate(-50%, -45%) scale(1.88) rotate(-15deg); /* 🎯 中央にピッタリ合わせつつ、×を少し大きく(1.4倍)する */
+    
+    color: #575757 !important;   /* 👈 ライトモード時は「黒」 */
+    line-height: 1;
+    font-weight: bold !important;
+    pointer-events: none;        /* マウス選択などの邪魔をしない */
+}
+
+/* 🌙 ダークモードの時は、背景が濃い紫になるので、×マークを「白（または赤）」に反転させると見やすくなります */
+body.dark-mode .re-zero-cross::after {
+    color: #ffffff !important;   /* 👈 ダークモード時は「白」に（お好みで赤 #ff4d4d とかにしてもリゼロっぽいです！） */
+}
+
+/* ==========================================================================
+   🗺️ 新・6本物理貫通タイムライン ＆ 始まった日から点灯版ロードマップ
+   ========================================================================== */
+
+.multi-line-roadmap {
+    position: relative;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 30px 0;
+}
+
+/* 🛠️ 各行（カードと日付のワンセット）：線を隙間なく繋げるためにマージンとパディングを最適化 */
+.multi-line-roadmap .roadmap-row {
+    position: relative;
+    width: 100%;
+    display: flex;
+    margin-bottom: 0px; 
+    padding: 20px 0;    
+    align-items: center;
+    min-height: 90px;
+}
+
+/* 🎯 各行の中央に配置される独立した縦線コンテナ */
+.multi-line-roadmap .row-vertical-lines {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    bottom: 0;
+    width: 110px; /* 6本が綺麗に均等に並ぶ固定幅 */
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;   /* 背景として潜り込ませる */
+    pointer-events: none;
+}
+
+/* 6本の物理線共通設定：ライトモードの未点灯線（デフォルトは消灯グレー） */
+.multi-line-roadmap .v-line {
+    width: 3px;
+    height: 100%;
+    background-color: #e6eaf0;
+    border-radius: 0px; 
+    transition: background-color 0.4s ease, opacity 0.4s ease;
+}
+
+/* ── ☀️ ライトモード時の点灯カラー（綺麗な虹色グラデーション） ── */
+.multi-line-roadmap .v-line.line-1.active { background-color: #ff4d4d; } /* 1: 赤 (テクノロジー) */
+.multi-line-roadmap .v-line.line-2.active { background-color: #ff9f43; } /* 2: オレンジ (Python) */
+.multi-line-roadmap .v-line.line-3.active { background-color: #f1c40f; } /* 3: 黄 (SQL) */
+.multi-line-roadmap .v-line.line-4.active { background-color: #2ecc71; } /* 4: 緑 (HTML/CSS) */
+.multi-line-roadmap .v-line.line-5.active { background-color: #007bff; } /* 5: 青 (JavaScript) */
+.multi-line-roadmap .v-line.line-6.active { background-color: #9b59b6; } /* 6: 紫 (Flask/React) */
+
+
+/* ── 🌙 ダークモード時のカラー制御 ── */
+body.dark-mode .multi-line-roadmap .v-line {
+    /* 未点灯の線：背景の濃い紫（#2c1654）に溶け込む暗い色にし、さらに透明度を下げて目立たなくします */
+    background-color: #4a3b68; 
+    opacity: 0.35;
+}
+
+/* 点灯した線（active）は透明度を100%に戻し、暗い背景でもパッと映える「明るいネオン虹色」に変更 */
+body.dark-mode .multi-line-roadmap .v-line.active {
+    opacity: 1 !important;
+}
+body.dark-mode .multi-line-roadmap .v-line.line-1.active { background-color: #ff6b6b; } /* 1: ネオン赤 */
+body.dark-mode .multi-line-roadmap .v-line.line-2.active { background-color: #ffb061; } /* 2: ネオンオレンジ */
+body.dark-mode .multi-line-roadmap .v-line.line-3.active { background-color: #fff200; } /* 3: ネオン黄 */
+body.dark-mode .multi-line-roadmap .v-line.line-4.active { background-color: #26de81; } /* 4: ネオン緑 */
+body.dark-mode .multi-line-roadmap .v-line.line-5.active { background-color: #45aaf2; } /* 5: ネオン青 */
+body.dark-mode .multi-line-roadmap .v-line.line-6.active { background-color: #a55eea; } /* 6: ネオン紫 */
+
+
+/* ── 📆 中央の日付バッジ ── */
+.multi-line-roadmap .roadmap-badge-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;            
+    background: #ffffff;    
+    padding: 4px 6px;
+    border-radius: 20px;
+}
+body.dark-mode .multi-line-roadmap .roadmap-badge-center {
+    background: #2c1654; 
+}
+
+.multi-line-roadmap .center-date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #222222;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 10px;
+    min-width: 44px;
+    height: 22px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+body.dark-mode .multi-line-roadmap .center-date {
+    background: #b5b1b1;
+    color: #2c1654;
+}
+
+/* ── 📦 スケジュール表示カード（四角枠） ── */
+.multi-line-roadmap .roadmap-card-box {
+    position: relative;
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 14px 16px;
+    width: calc(50% - 85px); 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    z-index: 10;
+}
+body.dark-mode .multi-line-roadmap .roadmap-card-box {
+    background: #1e1e1e;
+    border-color: #333333;
+    color: #ffffff;
+}
+
+/* ── ーーー 横の引き出し線（PC版：カードから中央へ延ばす設定） ── */
+
+/* ⬅️ 左側のカード：カードの「右端」から、中央（右側）に向けて線を延ばす */
+.multi-line-roadmap .left-side { justify-content: flex-start; }
+.multi-line-roadmap .left-side .roadmap-card-box { margin-right: auto; margin-left: 0; }
+.multi-line-roadmap .left-side .roadmap-card-box::after {
+    content: "";
+    position: absolute;
+    right: -85px; /* 💡 カードの右端から、中央の日付バッジのキワまで届くように長さを調整 */
+    top: 50%;
+    width: 85px;  /* 💡 線自体の長さ */
+    height: 2px;
+    background: #cbd5e1;
+    z-index: 5;
+    transform: translateY(-50%);
+}
+
+/* ➡️ 右側のカード：カードの「左端」から、中央（左側）に向けて線を延ばす */
+.multi-line-roadmap .right-side { justify-content: flex-end; }
+.multi-line-roadmap .right-side .roadmap-card-box { margin-left: auto; margin-right: 0; }
+.multi-line-roadmap .right-side .roadmap-card-box::after {
+    content: "";
+    position: absolute;
+    left: -85px;  /* 💡 カードの左端から、中央の日付バッジのキワまで届くように長さを調整 */
+    top: 50%;
+    width: 85px;  /* 💡 線自体の長さ */
+    height: 2px;
+    background: #cbd5e1;
+    z-index: 5;
+    transform: translateY(-50%);
+}
+
+/* 🌙 ダークモード時の横線の色（背景と同化しないように少し明るく） */
+body.dark-mode .multi-line-roadmap .left-side .roadmap-card-box::after,
+body.dark-mode .multi-line-roadmap .right-side .roadmap-card-box::after {
+    background: #4a3b68;
+}
+/* ── 🎨 カリキュラム文字・内枠カラーの装飾 ── */
+.multi-line-roadmap .node-title { margin: 0 0 6px 0; font-size: 14px; font-weight: bold; line-height: 1.4; }
+.multi-line-roadmap .node-details { font-size: 12px; line-height: 1.4; text-align: left; }
+.multi-line-roadmap .lecture-title { margin: 2px 0; color: #0056b3; font-weight: bold; }
+body.dark-mode .multi-line-roadmap .lecture-title { color: #64b5f6; }
+.multi-line-roadmap .exercise-title { margin: 2px 0; color: #c0392b; font-weight: bold; }
+body.dark-mode .multi-line-roadmap .exercise-title { color: #ff8a80; }
+.multi-line-roadmap .curriculum-list { margin: 4px 0 0 0; padding-left: 16px; color: #4a5568; }
+body.dark-mode .multi-line-roadmap .curriculum-list { color: #cccccc; }
+.multi-line-roadmap .curriculum-list li { margin-bottom: 2px; }
+
+/* 💡 テクノロジーに応じた枠線のカラー（虹色グラデーション） */
+.multi-line-roadmap .border-tech { border-color: #ff4d4d; }     /* 1: 赤（テクノロジー編） */
+.multi-line-roadmap .border-python { border-color: #ff9f43; }   /* 2: オレンジ（Python） */
+.multi-line-roadmap .border-sql { border-color: #f1c40f; }      /* 3: 黄（SQL） */
+.multi-line-roadmap .border-frontend { border-color: #2ecc71; } /* 4: 緑（HTML/CSS） */
+/* 💡 5本目のJavaScript用のカード（.border-jsなど）を今後もし使う場合は、ここが綺麗な青になります */
+.multi-line-roadmap .border-js { border-color: #007bff; }       /* 5: 青（JavaScript） */
+.multi-line-roadmap .border-flask { border-color: #9b59b6; }    /* 6: 紫（Flask/React） */
+
+/* ── 📝 テスト・ゴールの特殊枠 ── */
+.multi-line-roadmap .border-test { border-color: #e67e22; background: #fffbf7; }
+body.dark-mode .multi-line-roadmap .border-test { background: #2a221b; }
+
+/* 🏆 【重要】ゴール系の箱：ライトモード設定
+   👉 箱：鮮やかな青（#007bff）、文字・枠：高級感のあるゴールド（#ffd700） */
+.multi-line-roadmap .border-goal { 
+    background-color: #3d73df !important; 
+    border-color: #f4cf00 !important; 
+    color: #fbd91a !important; 
+}
+/* ライトモード時のゴール箱内にあるタイトル文字も金色に固定 */
+.multi-line-roadmap .border-goal .node-title {
+    color: #ffd700 !important;
+}
+
+.multi-line-roadmap .node-img-asset { width: 28px; height: 28px; object-fit: contain; float: right; margin: 0 0 5px 5px; }
+
+
+/* ── 🌙 ダークモード時の枠線・特殊カードカラー調整 ── */
+body.dark-mode .multi-line-roadmap .border-tech { border-color: #ff6b6b; }     /* 1: ネオン赤 */
+body.dark-mode .multi-line-roadmap .border-python { border-color: #ffb061; }   /* 2: ネオンオレンジ */
+body.dark-mode .multi-line-roadmap .border-sql { border-color: #fff200; }      /* 3: ネオン黄 */
+body.dark-mode .multi-line-roadmap .border-frontend { border-color: #26de81; } /* 4: ネオン緑 */
+body.dark-mode .multi-line-roadmap .border-js { border-color: #45aaf2; }       /* 5: ネオン青 */
+body.dark-mode .multi-line-roadmap .border-flask { border-color: #a55eea; }    /* 6: ネオン紫 */
+
+/* 🏆 【重要】ゴール系の箱：ダークモード設定（ライトモードと完全反転）
+   👉 箱：輝くゴールド（#ffd700）、文字・枠：深みのある青（#0056b3） */
+body.dark-mode .multi-line-roadmap .border-goal {
+    background-color: #d7d3b8 !important;
+    border-color: #6d94bd !important;
+    color: #07315e !important;
+}
+/* ダークモード時のゴール箱内にあるタイトル文字も青色に固定 */
+body.dark-mode .multi-line-roadmap .border-goal .node-title {
+    color: #0056b3 !important;
+}
+
+
+
+/* ==========================================
+   🌟 スクロールアニメーション用の設定 (ゴール箱対策版)
+   ========================================== */
+
+/* ── 虹（縦の6本線や日付）は最初から100%表示 ── */
+.multi-line-roadmap .row-vertical-lines,
+.multi-line-roadmap .v-line,
+.multi-line-roadmap .roadmap-badge-center,
+.multi-line-roadmap .center-date {
+    opacity: 1 !important;
+}
+
+/* ── 横の箱（学習記録ボックス）だけをアニメーション対象にする ── 
+   🎯 セレクタを少し詳しく記述することで、.border-goal などの!importantに負けないようにします */
+.multi-line-roadmap .roadmap-row .roadmap-card-box {
+    opacity: 0 !important; /* 👈 最初は絶対に透明にするために !important を追加 */
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* 画面内に入った時に付与するクラス（JSで付与） ── */
+.multi-line-roadmap .roadmap-row .roadmap-card-box.is-visible {
+    opacity: 1 !important; /* 👈 画面に入ったら絶対に不透明にするために !important を追加 */
+    transform: translateY(0);
+}
+
+/* ==========================================
+   📈 ロードマップのアイコン画像（モード別背景切り替え版）
+   ========================================== */
+.multi-line-roadmap .node-img-asset {
+    float: none !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    
+    /* 🎯 アイコン自体のサイズ（少し余白を持たせるために28pxに調整） */
+    width: 28px !important;
+    height: 28px !important;
+    object-fit: contain !important;
+    
+    /* 🎯【ライトモード時：黒丸の背景を設定】 */
+    background-color: #222222 !important;      /* 背景を黒（濃いグレー）にする */
+    border-radius: 50% !important;             /* 綺麗な正円にする */
+    padding: 4px !important;                   /* 丸の中に少し隙間を作って、画像を綺麗に収める */
+    
+    /* 文字との間に少し隙間を作る */
+    margin: -4px 8px 0 0 !important; 
+    
+    transition: background-color 0.4s ease !important; /* モード切替時にフワッと変わるように */
+}
+
+/* 🎯【ダークモード時：背景をなし（透明）にする】 */
+body.dark-mode .multi-line-roadmap .node-img-asset {
+    background-color: transparent !important;  /* 背景を透明にする */
+    padding: 0 !important;                     /* 背景がなくなるので、余白も0にして画像を元の大きさに */
+}
+
+/* タイトル文字もインラインブロックにして画像と横並びにする */
+.multi-line-roadmap .node-title {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    margin-bottom: 6px !important;
+}
+
+
+
+
+
+
+
+/* ── 📱 スマートフォン対応表示の自動調整（スマホ版のズレを完全修正） ── */
+@media (max-width: 768px) {
+    /* 💡 スマホ版では、6本の線が日付バッジ（左側30pxの位置）の真後ろにぴったり重なるように幅と位置を再計算 */
+    .multi-line-roadmap .row-vertical-lines {
+        left: 30px !important;
+        transform: translateX(-50%) !important; /* 真ん中基準でぴったり合わせる */
+        width: 80px !important;  /* 💡 スマホ画面に合わせて6本の線幅を少しだけコンパクトに凝縮 */
+        justify-content: space-between !important;
+    }
+
+    /* 日付バッジを左側30pxの位置の真ん中に固定 */
+    .multi-line-roadmap .roadmap-badge-center {
+        left: 30px !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        padding: 2px !important; /* バッジの余白を少し縮めて線を隠しすぎないように */
+    }
+
+    /* 右側のカードも左側のカードも、スマホではすべて右側に寄せる */
+    .multi-line-roadmap .roadmap-card-box {
+        width: calc(100% - 75px) !important;
+        margin-left: auto !important;
+        margin-right: 0 !important;
+        padding: 12px !important; /* スマホ用に少しコンパクトに */
+    }
+
+    /* ーーー 横の引き出し線も、すべて左側の日付バッジに向かって伸びるように統一 */
+    .multi-line-roadmap .left-side .roadmap-card-box::after, 
+    .multi-line-roadmap .right-side .roadmap-card-box::after {
+        left: -25px !important;
+        right: auto !important;
+        top: 50% !important;
+        width: 25px !important;
+        transform: translateY(-50%) !important;
+    }
+}
+
+
+/* ==========================================================================
+   🌈 2ページ目の虹をフッターの下まで確実に引き伸ばす調整（完全版）
+   ========================================================================== */
+
+/* 2ページ目のコンテナ自体の下側の余白をゼロにします */
+#page-trajectory.page-content {
+    padding-bottom: 0px !important;
+}
+
+/* ロードマップ全体の高さをフッターの裏側まで突き抜けさせる設定 */
+.multi-line-roadmap {
+    /* 最後のカードの下からフッターの底まで、余白とマイナスマージンで調整します */
+    padding-bottom: 150px !important; 
+    margin-bottom: -150px !important; 
+}
+
+/* 最後の行（5/29 プレゼンテーション＆ゴール！）の縦線コンテナをフッターの下まで伸ばす */
+.multi-line-roadmap .roadmap-row:last-child .row-vertical-lines {
+    bottom: -150px !important; /* ➔ マイナスマージンと同じ分だけ下へ突き抜けさせます */
+}
+
+/* 縦線自体の高さを100%にして、伸びたコンテナの底まで線を到達させます */
+.multi-line-roadmap .roadmap-row:last-child .v-line {
+    height: 100% !important;
+}
+
+
+/* 🌈 伸びた虹をフッターの「裏側」に潜り込ませる調整 */
+
+/* 1. ロードマップの縦線全体の重ね順（z-index）を少し下げます */
+.multi-line-roadmap .row-vertical-lines {
+    z-index: 1 !important;
+}
+
+/* 2. フッターの重ね順を上げ、背景色を確実に塗りつぶして虹を隠します */
+footer {
+    position: relative !important;
+    z-index: 10 !important; /* ➔ 縦線(z-index: 1)よりも上に配置 */
+    background-color: #ffffff !important; /* ➔ ライトモード時は白で下の虹を隠す */
+}
+
+/* 3. ダークモードの時もフッターの背景色で確実に虹を隠します */
+body.dark-mode footer {
+    background-color: #1e1e1e !important; /* ➔ ダークモード時のフッター色 */
+}
+
+
+/* 🔼 2ページ目専用：一番上へ戻るボタンのスタイル */
+.top-back-btn {
+    position: fixed !important;
+    bottom: 70px;  /* フッターやフレームに被らない絶妙な高さ */
+    right: 70px;   /* 右側のフレームの内側に配置 */
+    z-index: 999;  /* コンテンツより手前に表示 */
+    
+    background-color: #ffec80 !important; /* 高級感のあるゴールド */
+    color: #2b034f !important;            /* ダークモードの紫文字 */
+    border: 2px solid #2b034f !important;
+    padding: 10px 18px !important;
+    font-size: 14px !important;
+    border-radius: 30px !important;       /* 丸みを持たせて可愛いボタンに */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+    
+    transition: transform 0.2s, opacity 0.3s !important;
+    cursor: pointer !important;
+}
+
+/* ホバーした時に少し浮き上がらせる演出 */
+.top-back-btn:hover {
+    transform: scale(1.05) translateY(-3px) !important;
+    background-color: #ffef96 !important;
+}
+
+/* 📱 スマホ画面（768px以下）の時は邪魔にならないように位置とサイズを自動調整 */
+@media (max-width: 768px) {
+    .top-back-btn {
+        bottom: 45px !important;
+        right: 45px !important;
+        padding: 8px 12px !important;
+        font-size: 11px !important;
+    }
+}
+
+/* 🌈 追加したボタンのせいで縮んでしまった虹を、再度確実に引き伸ばす修正 */
+
+/* 「show-6」というクラスがついた、チーム開発やゴールの行の縦線を強制的に下に引っ張ります */
+.multi-line-roadmap .roadmap-row.show-6 .row-vertical-lines {
+    bottom: -150px !important; /* フッターの下まで突き抜けさせる */
+}
+
+/* 伸びたコンテナに合わせて、縦線自体の長さも100%に固定します */
+.multi-line-roadmap .roadmap-row.show-6 .v-line {
+    height: 100% !important;
+}
+
+
+
+
+
+
+
+/* ==========================================================================
+   💬 7. Message Board（2段構成・新レイアウト完全版）
+   ========================================================================== */
+
+/* 上段：ルーレットとメッセージボードを横並びにする設定 */
+.message-upper-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+/* 🎯 上段左：ルーレットエリア */
+.message-board-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 45%;
+}
+
+/* 🎡 ルーレットの土台 */
+.roulette-wrapper {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    box-sizing: border-box;
+}
+
+#roulette-canvas {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    display: block;
+}
+
+/* 📌 右側の赤い三角矢印 */
+.roulette-arrow {
+    position: absolute;
+    right: -15px;
+    top: 50%;
+    margin-top: -15px;
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 25px solid #ff4d4d;
+    z-index: 10;
+}
+
+/* 🕹️ 真ん中のPUSHボタン */
+#spin-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 66px;
+    height: 66px;
+    margin-top: -33px;
+    margin-left: -33px;
+    background: #ffffff;
+    color: #222222;
+    border: 4px solid #e6eaf0;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: transform 0.1s;
+}
+#spin-button:active {
+    transform: scale(0.92);
+}
+
+/* 💬 上段右：個別メッセージボードのコンテナ */
+.message-box-container {
+    width: 45%;
+    min-height: 250px;
+}
+
+.message-board {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 2px solid #e2e8f0;
+    box-sizing: border-box;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+body.dark-mode .message-board {
+    background: #1e1e1e;
+    border-color: #333333;
+}
+
+.student-profile {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 20px;
+    border-bottom: 2px dashed #e8e8e8;
+    padding-bottom: 15px;
+}
+body.dark-mode .student-profile {
+    border-bottom-color: #333333;
+}
+
+/* 🏷️ フルネームの横に並ぶ敬称（先生・さん） */
+.honorific-text {
+    font-size: 16px;
+    font-weight: normal;
+    color: #666666;
+    margin-left: 6px;
+    display: inline-block;
+}
+body.dark-mode .honorific-text {
+    color: #aaaaaa;
+}
+
+/* 👤 アバターアイコン画像 */
+.avatar-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 3px solid #e2e8f0;
+    transition: border-color 0.3s ease;
+}
+
+#student-name { margin: 0; font-size: 22px; font-weight: bold; color: #222222; }
+body.dark-mode #student-name { color: #ffffff; }
+.message-box { font-size: 15px; line-height: 1.7; color: #444444; word-break: break-all; min-height: 100px; }
+body.dark-mode .message-box { color: #cccccc; }
+
+
+/* 💻 下段：ターミナルを画面いっぱいに広げる設定 */
+.message-lower-row {
+    margin-top: 40px;
+    padding-bottom: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.control-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 90%; /* 長いコードが見えやすいように横幅を広く確保 */
+}
+
+.action-btn {
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.python-style-btn {
+    background-color: #3776ab;
+    color: #ffd343;
+    box-shadow: 0 4px 12px rgba(55, 118, 171, 0.3);
+}
+.python-style-btn:hover {
+    background-color: #2b5c84;
+}
+
+/* 💻 ターミナル本体 */
+.terminal-area {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #333333;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.terminal-header {
+    background-color: #2d2d2d;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #222;
+}
+
+.terminal-header span[class^="dot-"] { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.dot-red { background: #ff5f56; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green { background: #27c93f; }
+.terminal-title { color: #aaaaaa; font-size: 13px; margin-left: 10px; font-family: monospace; }
+
+/* コードエディタ表示（白文字） */
+.terminal-body-code {
+    padding: 18px;
+    color: #f8f8f2;
+    background-color: #272822;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    white-space: pre-wrap;
+    line-height: 1.6;
+    border-bottom: 2px solid #1e1e1e;
+}
+
+/* 実行結果出力エリア（ネオングリーン文字） */
+.terminal-body-output {
+    padding: 18px;
+    color: #39ff14; 
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    white-space: pre-wrap;
+    min-height: 100px;
+    line-height: 1.5;
+    background-color: #1e1e1e;
+}
+
+/* 💬 メッセージボックス内の \n による改行を有効にする */
+#student-message {
+    white-space: pre-wrap !important;
+}
+
+/* ==========================================================================
+   📱 スマートフォン用レスポンシブ調整（完全縦1列配置）
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* ページコンテンツ単体でもスマホでのスクロール余白を確保 */
+    .page-content {
+        width: 100%;
+        padding-bottom: 80px; /* 👈 フッターやフレームに被らないように余白を追加 */
+    }
+
+    /* 上段のレイアウトを解除して縦並びに */
+    .message-upper-row {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 20px !important;
+        width: 100% !important;
+    }
+
+    .message-board-area,
+    .message-box-container {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* ルーレット本体のサイズをスマホ幅に縮小し、Canvasを完全にレスポンシブ化 */
+    .roulette-wrapper {
+        width: 280px !important;
+        height: 280px !important;
+        margin: 0 auto !important;
+    }
+
+    #roulette-canvas {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important; /* 👈 Canvasのサイズ歪みを防止 */
+    }
+
+    #spin-button {
+        width: 58px !important;
+        height: 58px !important;
+        margin-top: -29px !important;
+        margin-left: -29px !important;
+        font-size: 11px !important;
+    }
+
+    /* メッセージボックス */
+    .message-board {
+        padding: 20px !important;
+        min-height: 180px !important;
+    }
+
+    .student-profile {
+        gap: 12px !important;
+    }
+
+    #student-name {
+        font-size: 18px !important;
+    }
+
+    /* 下段：ターミナルをスマホに合わせる */
+    .message-lower-row {
+        margin-top: 20px !important;
+        width: 100% !important;
+        padding-bottom: 40px !important;
+    }
+
+    .control-panel {
+        width: 100% !important;
+        gap: 15px !important;
+    }
+
+    .action-btn {
+        font-size: 16px !important;
+        padding: 12px !important;
+    }
+
+    .terminal-body-code, 
+    .terminal-body-output {
+        padding: 14px !important;
+        font-size: 11px !important; /* スマホでコードが折り返されすぎないよう少し小さく */
+        font-family: monospace !important;
+    }
+}

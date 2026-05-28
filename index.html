@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>米田先生へ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/icon_sensei.png" type="image/png">
+</head>
+
+<body> 
+    <div id="global-frame">
+        <div class="frame-border frame-top"></div>
+        <div class="frame-border frame-bottom"></div>
+        <div class="frame-border frame-left"></div>
+        <div class="frame-border frame-right"></div> 
+        <div class="edge-group edge-top">
+            <div class="flex-decor decor-corner-in-left">
+                <div class="unit f1"></div><div class="unit f3-v"></div><div class="unit f1"></div><div class="unit f3-vh"></div><div class="unit f1"></div>
+            </div>
+            <img src="images/frame2.png" alt="中央飾り" class="center-decor">
+            <div class="flex-decor decor-corner-in-right">
+                <div class="unit f1"></div><div class="unit f3-v"></div><div class="unit f1"></div><div class="unit f3-vh"></div><div class="unit f1"></div>
+            </div>
+        </div>
+        <div class="edge-group edge-bottom">
+            <div class="flex-decor decor-corner-in-left">
+                <div class="unit f1"></div><div class="unit f3-v"></div><div class="unit f1"></div><div class="unit f3-vh"></div><div class="unit f1"></div>
+            </div>
+            <img src="images/frame2.png" alt="中央飾り" class="center-decor">
+            <div class="flex-decor decor-corner-in-right">
+                <div class="unit f1"></div><div class="unit f3-v"></div><div class="unit f1"></div><div class="unit f3-vh"></div><div class="unit f1"></div>
+            </div>
+        </div>
+        <div class="edge-group edge-left">
+            <div class="flex-decor decor-corner-in-left">
+                <div class="unit f1"></div><div class="unit f3-v"></div><div class="unit f1"></div><div class="unit f3-vh"></div><div class="unit f1"></div>
+            </div>
+            <img src="images/frame2.png" alt="中央飾り" class="center-decor">
+            <div class="flex-decor decor-corner-in-right">
+                <div class="unit f1"></div><div class="unit f3-v"></div><div class="unit f1"></div><div class="unit f3-vh"></div><div class="unit f1"></div>
+            </div>
+        </div>
+        <div class="edge-group edge-right">
+            <div class="flex-decor decor-corner-in-left">
+                <div class="unit f1"></div><div class="unit f3-v"></div><div class="unit f1"></div><div class="unit f3-vh"></div><div class="unit f1"></div>
+            </div>
+            <img src="images/frame2.png" alt="中央飾り" class="center-decor">
+            <div class="flex-decor decor-corner-in-right">
+                <div class="unit f1"></div><div class="unit f3-v"></div><div class="unit f1"></div><div class="unit f3-vh"></div><div class="unit f1"></div>
+            </div>
+        </div>
+        <img src="images/star.png" alt="星" class="corner-star top-left">
+        <img src="images/star.png" alt="星" class="corner-star top-right">
+        <img src="images/star.png" alt="星" class="corner-star bottom-left">
+        <img src="images/star.png" alt="星" class="corner-star bottom-right">
+    </div>
+
+
+
+    <div id="password-screen" class="screen">
+        <div class="login-box">
+            <h2>🔑 パスワードを入力してください</h2>
+            <div class="input-area">
+                <input type="password" id="password-input" autofocus>
+                <button id="login-button">決定</button>
+            </div>
+            <p id="error-message" class="error"></p>
+        </div>
+    </div>
+
+    <div id="main-content" class="screen hidden">
+        <header>
+            <nav class="tabs">
+                <button class="tab-btn active" onclick="switchPage('main', this)">メイン</button>
+                <button class="tab-btn" onclick="switchPage('trajectory', this)">二ヶ月間の技術研修</button>
+                <button class="tab-btn" onclick="switchPage('messages', this)">メッセージ</button>
+            </nav>
+            <button id="mode-toggle">🌓</button>
+        </header>
+
+<main>
+            <section id="page-main" class="page-content">
+                <div class="main-message-container">
+                    <img src="images/decoration_line.png" alt="" class="msg-line-top">
+                    <h1 class="main-thank-you-text">
+                        <span class="t-name">米田久斗</span><span class="t-title">先生</span>
+                        <span class="t-br"><br></span>
+                        <span class="t-msg">二か月間 ありがとうございました！</span>
+                    </h1>
+                    <img src="images/decoration_line.png" alt="" class="msg-line-bottom">
+                </div>
+
+                <div class="photo-container">
+                    <img src="images/decoration.png" alt="" class="photo-decor-top">
+                    <img src="images/classroom.jpg" alt="教室写真" class="main-photo">
+                    <img src="images/decoration.png" alt="" class="photo-decor-bottom">
+                </div>
+
+                <div class="gif-animation-container">
+                    <img src="images/mario_luigi_dance.gif" alt="ダンス" class="footer-gif gif-mario">
+                    <img src="images/party_blob.gif" alt="パーティー" class="footer-gif gif-blob">
+                    <img src="images/thumbsup_parrot.gif" alt="オウム" class="footer-gif gif-parrot">
+                </div>
+
+
+            </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <section id="page-trajectory" class="page-content hidden">
+                <div class="page-header-group">
+                <h2 class="section-title">二ヶ月間の技術研修</h2>
+                <p class="section-sub"><span class="re-zero-cross">Re</span>:ゼロから始めるWebアプリ製作</p>
+                </div>
+
+                <div class="multi-line-roadmap">
+
+                    <div class="roadmap-row left-side show-1">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/7</span>
+                        </div>
+                        <div class="roadmap-card-box border-tech">
+                            <img src="images/technology.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">テクノロジー編スタート！</h3>
+                            <div class="node-details">
+                                <ul class="curriculum-list">
+                                    <li>2進数と進数変換</li>
+                                    <li>コンピュータのデータ表現</li>
+                                    <li>コンピュータで役に立つ数学について学んでいこう</li>
+                                    <li>開発ツールとハードウェアについて知っておこう</li>
+                                    <li>情報・通信・計測制御に関する理論</li>
+                                    <li>データ構造</li>
+                                    <li>コンピュータシステムについて理解しよう</li>
+                                    <li>コンピュータの構成要素を理解しよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row right-side show-1">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/8</span>
+                        </div>
+                        <div class="roadmap-card-box border-tech">
+                            <img src="images/technology.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">コンピュータシステム理解</h3>
+                            <div class="node-details">
+                                <ul class="curriculum-list">
+                                    <li>ソフトウェアについて知っておこう</li>
+                                    <li>開発ツールとハードウェアについて知っておこう</li>
+                                    <li>データベースについて学習しよう(1)</li>
+                                    <li>データベースについて学習しよう(2)</li>
+                                    <li>OSI基本参照モデル</li>
+                                    <li>セッション層・プレゼンテーション層・アプリケーション層</li>
+                                    <li>システム開発技術</li>
+                                    <li>開発プロセス・手法</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row left-side show-2">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/9</span>
+                        </div>
+                        <div class="roadmap-card-box border-python">
+                            <img src="images/python.png" alt="Python" class="node-img-asset" onerror="this.style.display='none'">
+                            <h3 class="node-title">Pythonスタート！</h3>
+                            <div class="node-details">
+                                <ul class="curriculum-list">
+                                    <li>Python3を学習しよう</li>
+                                    <li>標準出力を学習しよう</li>
+                                    <li>数値とその演算を学習しよう</li>
+                                    <li>変数を学習しよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row right-side show-2">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/10</span>
+                        </div>
+                        <div class="roadmap-card-box border-python">
+                            <img src="images/python.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">条件分岐と制御</h3>
+                            <div class="node-details">
+                                <p class="lecture-title">フローチャート</p>
+                                <ul class="curriculum-list">
+                                    <li>文字列とその演算を学習しよう</li>
+                                    <li>文字列と数値の相互変換を学習しよう</li>
+                                    <li>条件分岐を学習しよう</li>
+                                    <li>ブール型を学習しよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row left-side show-2">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/13</span>
+                        </div>
+                        <div class="roadmap-card-box border-python">
+                            <img src="images/python.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">データ構造（リスト）</h3>
+                            <div class="node-details">
+                                <ul class="curriculum-list">
+                                    <li>ブール型を学習しよう</li>
+                                    <li>リストを学習しよう</li>
+                                    <li>リストと文字列の相互変換を学習しよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row right-side show-2">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/14</span>
+                        </div>
+                        <div class="roadmap-card-box border-python">
+                            <img src="images/python.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">繰り返し処理とタプル</h3>
+                            <div class="node-details">
+                                <p class="lecture-title">while文とfor文のelse節</p>
+                                <ul class="curriculum-list">
+                                    <li>while文を学習しよう</li>
+                                    <li>タプルを学習しよう</li>
+                                    <li>for文を学習しよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row left-side show-2">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/15</span>
+                        </div>
+                        <div class="roadmap-card-box border-python">
+                            <img src="images/python.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">書式指定と標準入力</h3>
+                            <div class="node-details">
+                                <p class="lecture-title">Pythonリファレンスの見方</p>
+                                <p class="lecture-title">formatメソッドとf文字列の書式指定</p>
+                                <ul class="curriculum-list">
+                                    <li>タプルを学習しよう</li>
+                                    <li>リスト内包表記を学習しよう</li>
+                                    <li>標準入力を理解しよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row right-side show-2">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/16</span>
+                        </div>
+                        <div class="roadmap-card-box border-python">
+                            <img src="images/python.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">アルゴリズム基礎</h3>
+                            <div class="node-details">
+                                <p class="lecture-title">フローチャートとトレース表</p>
+                                <ul class="curriculum-list">
+                                    <li>アルゴリズムとデータ構造</li>
+                                    <li>線形探索</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row left-side show-2">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/17</span>
+                        </div>
+                        <div class="roadmap-card-box border-test">
+                            <h3 class="node-title">📝 演習問題＆スキルテスト</h3>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row right-side show-2">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/20</span>
+                        </div>
+                        <div class="roadmap-card-box border-python">
+                            <img src="images/python.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">辞書と関数</h3>
+                            <div class="node-details">
+                                <ul class="curriculum-list">
+                                    <li>辞書を学習しよう</li>
+                                    <li>関数を学習しよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row left-side show-2">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/21</span>
+                        </div>
+                        <div class="roadmap-card-box border-python">
+                            <img src="images/python.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">スコープと再帰呼び出し</h3>
+                            <div class="node-details">
+                                <ul class="curriculum-list">
+                                    <li>変数のスコープを学習しよう</li>
+                                    <li>関数の引数と再帰呼び出しを学習しよう</li>
+                                    <li>集合を学習しよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row right-side show-2">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/22</span>
+                        </div>
+                        <div class="roadmap-card-box border-python">
+                            <img src="images/python.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">クラスとオブジェクト</h3>
+                            <div class="node-details">
+                                <ul class="curriculum-list">
+                                    <li>クラスを学習しよう</li>
+                                    <li>イミュータブルとミュータブルを学習しよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row left-side show-2">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/23</span>
+                        </div>
+                        <div class="roadmap-card-box border-python">
+                            <img src="images/python.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">継承と例外処理</h3>
+                            <div class="node-details">
+                                <ul class="curriculum-list">
+                                    <li>クラスの継承を学習しよう</li>
+                                    <li>例外処理を理解しよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row right-side show-2">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/24</span>
+                        </div>
+                        <div class="roadmap-card-box border-python">
+                            <img src="images/python.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">モジュール</h3>
+                            <div class="node-details">
+                                <ul class="curriculum-list">
+                                    <li>モジュールを理解しよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row left-side show-2">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/27</span>
+                        </div>
+                        <div class="roadmap-card-box border-test">
+                            <h3 class="node-title">📝 演習問題＆スキルテスト</h3>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row right-side show-3">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/28</span>
+                        </div>
+                        <div class="roadmap-card-box border-sql">
+                            <img src="images/sql.png" alt="SQL" class="node-img-asset" onerror="this.style.display='none'">
+                            <h3 class="node-title">SQLスタート！</h3>
+                            <div class="node-details">
+                                <ul class="curriculum-list">
+                                    <li>SQLをはじめよう</li>
+                                    <li>SELECT文を理解しよう</li>
+                                    <li>WHERE句を理解しよう</li>
+                                    <li>テーブルの結合を理解しよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row left-side show-3">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">4/30</span>
+                        </div>
+                        <div class="roadmap-card-box border-sql">
+                            <img src="images/sql.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">🗄️ データ操作（CRUD）</h3>
+                            <div class="node-details">
+                                <ul class="curriculum-list">
+                                    <li>GROUP BY 句を理解しよう</li>
+                                    <li>INSERT文を理解しよう</li>
+                                    <li>UPDATE文を理解しよう</li>
+                                    <li>DELETE文を理解しよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row right-side show-3">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">5/1</span>
+                        </div>
+                        <div class="roadmap-card-box border-sql">
+                            <img src="images/sql.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">データベース定義</h3>
+                            <div class="node-details">
+                                <ul class="curriculum-list">
+                                    <li>CREATE DATABASE文を理解しよう</li>
+                                    <li>CREATE TABLE文を理解しよう</li>
+                                    <li>データ型を理解しよう</li>
+                                    <li>制約を理解しよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row left-side show-4">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">5/7</span>
+                        </div>
+                        <div class="roadmap-card-box border-frontend">
+                            <img src="images/html_css.png" alt="Frontend" class="node-img-asset" onerror="this.style.display='none'">
+                            <h3 class="node-title">HTML＆CSSスタート！</h3>
+                            <div class="node-details">
+                                <ul class="curriculum-list">
+                                    <li>HTMLをはじめよう</li>
+                                    <li>コンテンツの書き方を理解しよう</li>
+                                    <li>コメントを理解しよう</li>
+                                    <li>セクションを理解しよう</li>
+                                    <li>グルーピングコンテンツ</li>
+                                    <li>CSSの基礎を学ぼう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row right-side show-5">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">5/8</span>
+                        </div>
+                        <div class="roadmap-card-box border-js">
+                            <img src="images/javascript.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">JavaScriptスタート！</h3>
+                            <div class="node-details">
+                                <p class="lecture-title">JavaScript基礎</p>
+                                <p class="lecture-title">クライアントサイドJavaScript</p>
+                                <ul class="curriculum-list">
+                                    <li>JavaScriptをはじめよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row left-side show-5">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">5/11</span>
+                        </div>
+                        <div class="roadmap-card-box border-js">
+                            <img src="images/javascript.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">WebアプリとReactの話</h3>
+                            <div class="node-details">
+                                <p class="lecture-title">ReactのためのJavaScript</p>
+                                <ul class="curriculum-list">
+                                    <li>Webアプリケーションを作成しよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row right-side show-6">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">5/12</span>
+                        </div>
+                        <div class="roadmap-card-box border-flask">
+                            <img src="images/flask.png" alt="Flask" class="node-img-asset" onerror="this.style.display='none'">
+                            <h3 class="node-title">Flaskスタート！</h3>
+                            <div class="node-details">
+                                <ul class="curriculum-list">
+                                    <li>Python warfareWebアプリケーションを作ろう</li>
+                                    <li>Pythonでフォーム処理の基本を身に付けよう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row left-side show-6">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">5/13</span>
+                        </div>
+                        <div class="roadmap-card-box border-flask">
+                            <img src="images/flask.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">Flask ＆ DB連携</h3>
+                            <div class="node-details">
+                                <ul class="curriculum-list">
+                                    <li>Pythonでデータベースの基本を理解しよう</li>
+                                    <li>SQLAlchemyでデータベースを操作しよう</li>
+                                    <li>SQLAlchemyでメモ帳アプリを作ろう</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row right-side show-6">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">5/14</span>
+                        </div>
+                        <div class="roadmap-card-box border-flask">
+                            <img src="images/flask.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">実践Web機能・認証</h3>
+                            <div class="node-details">
+                                <p class="lecture-title">01フォームとバリデーション</p>
+                                <p class="lecture-title">02Flask-Login</p>
+                                <p class="lecture-title">03サブシステムへの分割</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row left-side show-6">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">5/15</span>
+                        </div>
+                        <div class="roadmap-card-box border-flask">
+                            <img src="images/flask.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">Ajax ＆ SPA・Reactの基礎</h3>
+                            <div class="node-details">
+                                <p class="lecture-title">04Ajax</p>
+                                <p class="lecture-title">ReactのためのJavaScript</p>
+                                <p class="lecture-title">MPAとSPA</p>
+                                <p class="exercise-title">React環境設定手順書</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row right-side show-6">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">5/18</span>
+                        </div>
+                        <div class="roadmap-card-box border-flask">
+                            <img src="images/flask.png" alt="" class="node-img-asset">
+                            <h3 class="node-title">Reactコンポーネントと非同期</h3>
+                            <div class="node-details">
+                                <p class="exercise-title">01コンポーネントとJSX</p>
+                                <p class="exercise-title">02stateとイベント処理</p>
+                                <p class="exercise-title">03useEffectの使い方</p>
+                                <p class="exercise-title">非同期処理の扱い</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row left-side show-6">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">5/19</span>
+                        </div>
+                        <div class="roadmap-card-box border-goal">
+                            <h3 class="node-title">🌟 チーム開発演習スタート！</h3>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row right-side show-6">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">5/28</span>
+                        </div>
+                        <div class="roadmap-card-box border-goal">
+                            <h3 class="node-title">✨ 完成！！</h3>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-row left-side show-6">
+                        <div class="row-vertical-lines">
+                            <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
+                        </div>
+                        <div class="roadmap-badge-center">
+                            <span class="center-date">5/29</span>
+                        </div>
+                        <div class="roadmap-card-box border-goal">
+                            <h3 class="node-title">👑 プレゼンテーション＆ゴール！</h3>
+                        </div>
+                    </div>
+                    <button id="scroll-to-top-btn" class="top-back-btn">△ 一番上へ戻る</button>
+                </div>
+            </section>
+
+
+
+
+
+
+
+
+
+
+
+
+        <section id="page-messages" class="page-content hidden">
+            <div class="page-header-group">
+            <h2 class="section-title">みんなからのメッセージ</h2>
+            <p class="section-sub">数字キーを押しながらルーレットを回すと…？</p>
+            </div>
+
+            <div class="message-upper-row">
+                <div class="message-board-area">
+                    <div class="roulette-wrapper">
+                        <div class="roulette-arrow"></div> <canvas id="roulette-canvas" width="400" height="400"></canvas>
+                        <button id="spin-button">PUSH</button>
+                    </div>
+                </div>
+
+                <div class="message-box-container">
+                    <div id="active-message-box" class="message-board hidden">
+                        <div class="student-profile">
+                            <img id="student-avatar" src="images/avatar_default.png" alt="生徒写真" class="avatar-img" onerror="this.src='https://via.placeholder.com/70'">
+                            <div>
+                                <h3 id="student-name">名前がここに入ります</h3>
+                            </div>
+                        </div>
+                        <div id="student-message" class="message-box">
+                            ここにメッセージが一文字ずつ表示されます。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="message-lower-row">
+                <div class="control-panel">
+                    <div class="terminal-area">
+                        <div class="terminal-header">
+                            <span class="dot-red"></span>
+                            <span class="dot-yellow"></span>
+                            <span class="dot-green"></span>
+                            <span class="terminal-title">yoneda_thank_you.py</span>
+                        </div>
+                        <div class="terminal-body-code">class ProgrammingTraining:
+    def __init__(self, period_months):
+        self.period = period_months
+        self.skills = ["Python", "SQL", "HTML/CSS", "JavaScript", "Flask", "React"]
+        self.students = {"Kazuki.T", "Yui.M", "Natsuki.M", "Manato.K", "Masatoshi.T", "Kazuho.K", "Tomoya.H"}
+
+    def show_final_status(self):
+        print(f"研修期間: {self.period}ヶ月 (4/7 ～ 5/29)")
+        print(f"学習した言語／技術: {' -> '.join(self.skills)}")
+        print(f"受講生一同: {', '.join(self.students)}")
+        print("\n米田久斗先生研修期間中大変お世話になりました。")
+        print("あっという間の２ヶ月でしたが、先生のサポートのもと、皆様のおかげで日々充実した学びと楽しい時間を過ごすことができました！")
+        print("本当にありがとうございました！")
+        print("\nPaiza株式会社様、株式会社infordio様をはじめ、すべての関係者の皆様とのご縁に、心より感謝申し上げます。")
+        print("研修終了日 : 2026年5月29日")
+
+# 研修を実行
+training = ProgrammingTraining(period_months=2)
+training.show_final_status()</div>
+                        <div id="terminal-output" class="terminal-body-output"></div>
+                    </div>
+                    <button id="run-python-btn" class="action-btn python-style-btn">▶ 実行</button>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</main>
+        <footer>
+            <div class="footer-area">
+                <div id="footer-text" class="date"></div>
+            </div>
+        </footer>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <div id="main-page-flying-decor" class="hidden">
+        
+        <div class="band-group band-group-top">
+            <div class="d-main">
+                <img src="images/flower5.png" alt="" class="bg-fl-main-top1">
+            </div>
+            <div class="d-sub"></div>
+            
+            <div class="d-main">
+                <img src="images/flower3.png" alt="" class="bg-fl-main-top3">
+            </div>
+            <div class="d-sub"></div>
+        </div>
+        
+        <div class="band-group band-group-bottom">
+            <div class="d-sub"></div>
+            
+            <div class="d-main">
+                <img src="images/decoration_day1.png" alt="" class="bg-day1-bottom">
+            </div>
+            
+            <div class="d-sub"></div>
+            
+            <div class="d-main day1-target">
+                <img src="images/flower4.png" alt="" class="bg-fl-main-bottom4">
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
