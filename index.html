@@ -59,8 +59,6 @@
         <img src="images/star.png" alt="星" class="corner-star bottom-right">
     </div>
 
-
-
     <div id="password-screen" class="screen">
         <div class="login-box">
             <h2>🔑 パスワードを入力してください</h2>
@@ -82,7 +80,7 @@
             <button id="mode-toggle">🌓</button>
         </header>
 
-<main>
+        <main>
             <section id="page-main" class="page-content">
                 <div class="main-message-container">
                     <img src="images/decoration_line.png" alt="" class="msg-line-top">
@@ -105,42 +103,15 @@
                     <img src="images/party_blob.gif" alt="パーティー" class="footer-gif gif-blob">
                     <img src="images/thumbsup_parrot.gif" alt="オウム" class="footer-gif gif-parrot">
                 </div>
-
-
             </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             <section id="page-trajectory" class="page-content hidden">
                 <div class="page-header-group">
-                <h2 class="section-title">二ヶ月間の技術研修</h2>
-                <p class="section-sub"><span class="re-zero-cross">Re</span>:ゼロから始めるWebアプリ製作</p>
+                    <h2 class="section-title">二ヶ月間の技術研修</h2>
+                    <p class="section-sub"><span class="re-zero-cross">Re</span>:ゼロから始めるWebアプリ製作</p>
                 </div>
 
                 <div class="multi-line-roadmap">
-
                     <div class="roadmap-row left-side show-1">
                         <div class="row-vertical-lines">
                             <span class="v-line line-1"></span><span class="v-line line-2"></span><span class="v-line line-3"></span><span class="v-line line-4"></span><span class="v-line line-5"></span><span class="v-line line-6"></span>
@@ -695,56 +666,48 @@
                 </div>
             </section>
 
-
-
-
-
-
-
-
-
-
-
-
-        <section id="page-messages" class="page-content hidden">
-            <div class="page-header-group">
-            <h2 class="section-title">みんなからのメッセージ</h2>
-            <p class="section-sub">数字キーを押しながらルーレットを回すと…？</p>
-            </div>
-
-            <div class="message-upper-row">
-                <div class="message-board-area">
-                    <div class="roulette-wrapper">
-                        <div class="roulette-arrow"></div> <canvas id="roulette-canvas" width="400" height="400"></canvas>
-                        <button id="spin-button">PUSH</button>
-                    </div>
+            <section id="page-messages" class="page-content hidden">
+                <div class="page-header-group">
+                    <h2 class="section-title">みんなからのメッセージ</h2>
+                    <p class="section-sub">数字キーを押しながらルーレットを回すと…？</p>
                 </div>
 
-                <div class="message-box-container">
-                    <div id="active-message-box" class="message-board hidden">
-                        <div class="student-profile">
-                            <img id="student-avatar" src="images/avatar_default.png" alt="生徒写真" class="avatar-img" onerror="this.src='https://via.placeholder.com/70'">
-                            <div>
-                                <h3 id="student-name">名前がここに入ります</h3>
+                <div class="message-upper-row">
+                    <div class="message-board-area">
+                        <div class="roulette-wrapper">
+                            <div class="roulette-arrow"></div>
+                            <canvas id="roulette-canvas" width="400" height="400"></canvas>
+                            <button id="spin-button">PUSH</button>
+                        </div>
+                    </div>
+
+                    <div class="message-box-container">
+                        <div id="active-message-box" class="message-board hidden">
+                            <div class="student-profile">
+                                <img id="student-avatar" src="images/avatar_default.png" alt="生徒写真" class="avatar-img" onerror="this.src='https://via.placeholder.com/70'">
+                                <div>
+                                    <h3 id="student-name">名前がここに入ります</h3>
+                                </div>
+                            </div>
+                            <div id="student-message" class="message-box">
+                                ここにメッセージが一文字ずつ表示されます。
                             </div>
                         </div>
-                        <div id="student-message" class="message-box">
-                            ここにメッセージが一文字ずつ表示されます。
-                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="message-lower-row">
-                <div class="control-panel">
-                    <div class="terminal-area">
-                        <div class="terminal-header">
-                            <span class="dot-red"></span>
-                            <span class="dot-yellow"></span>
-                            <span class="dot-green"></span>
-                            <span class="terminal-title">yoneda_thank_you.py</span>
-                        </div>
-                        <div class="terminal-body-code">class ProgrammingTraining:
+                <div class="message-board-area" style="display: none;"></div>
+
+                <div class="message-lower-row">
+                    <div class="control-panel">
+                        <div class="terminal-area">
+                            <div class="terminal-header">
+                                <span class="dot-red"></span>
+                                <span class="dot-yellow"></span>
+                                <span class="dot-green"></span>
+                                <span class="terminal-title">yoneda_thank_you.py</span>
+                            </div>
+                            <div class="terminal-body-code">class ProgrammingTraining:
     def __init__(self, period_months):
         self.period = period_months
         self.skills = ["Python", "SQL", "HTML/CSS", "JavaScript", "Flask", "React"]
@@ -763,33 +726,14 @@
 # 研修を実行
 training = ProgrammingTraining(period_months=2)
 training.show_final_status()</div>
-                        <div id="terminal-output" class="terminal-body-output"></div>
+                            <div id="terminal-output" class="terminal-body-output"></div>
+                        </div>
+                        <button id="run-python-btn" class="action-btn python-style-btn">▶ 実行</button>
                     </div>
-                    <button id="run-python-btn" class="action-btn python-style-btn">▶ 実行</button>
                 </div>
-            </div>
-        </section>
+            </section>
+        </main>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</main>
         <footer>
             <div class="footer-area">
                 <div id="footer-text" class="date"></div>
@@ -797,24 +741,12 @@ training.show_final_status()</div>
         </footer>
     </div>
 
-
-
-
-
-
-
-
-
-
-
     <div id="main-page-flying-decor" class="hidden">
-        
         <div class="band-group band-group-top">
             <div class="d-main">
                 <img src="images/flower5.png" alt="" class="bg-fl-main-top1">
             </div>
             <div class="d-sub"></div>
-            
             <div class="d-main">
                 <img src="images/flower3.png" alt="" class="bg-fl-main-top3">
             </div>
@@ -823,13 +755,10 @@ training.show_final_status()</div>
         
         <div class="band-group band-group-bottom">
             <div class="d-sub"></div>
-            
             <div class="d-main">
                 <img src="images/decoration_day1.png" alt="" class="bg-day1-bottom">
             </div>
-            
             <div class="d-sub"></div>
-            
             <div class="d-main day1-target">
                 <img src="images/flower4.png" alt="" class="bg-fl-main-bottom4">
             </div>
